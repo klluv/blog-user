@@ -57,14 +57,13 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             const token = response.data.token;  
-            this.$cookies.set("userToken", token, "1d");
-            // this.$store.dispatch("setToken", token);
+            this.$cookies.set("userToken", token, "12h");
             const self = this;
             Swal.fire({
               icon: "success",
               title: "Success",
               text: response.data.message,
-            }).then(function () {
+            }).then(function () { 
               self.$router.push({ name: "MainHome"});
             });
           } else {

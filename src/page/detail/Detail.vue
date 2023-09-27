@@ -15,7 +15,7 @@ import axios from 'axios';
 export default {
     data() {
     return {
-      content: null,
+      content: [],
     };
   },
   methods: {
@@ -30,8 +30,8 @@ export default {
     }
   },
   created() {
-    const contentId = this.$route.params.id; // Mendapatkan ID dari URL
-    this.fetchContent(contentId); // Mengambil konten berdasarkan ID
+    const contentId = this.$route.params.id; 
+    this.fetchContent(contentId); 
   },
 }
 </script>

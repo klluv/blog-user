@@ -45,9 +45,11 @@ export default {
       this.$router.push({ name: 'MainDetail', params: { id: contentId } });
     },
     fetchContent() {
-      axios.get('http://localhost:1234/contents').then(response => {
-        this.contents = response.data; 
-      }).catch(error => {
+      axios.get('http://localhost:1234/contents')
+      .then(response => {
+        this.contents = response.data.slice(0,3); 
+      })
+      .catch(error => {
         console.error('Gagal mengambil data:', error);
       });
     }

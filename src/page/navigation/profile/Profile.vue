@@ -24,28 +24,35 @@ import axios from 'axios';
 
 export default {
   data() {
-    return{
-      id: '',
+    return {
       name: '',
-      bio: '',
+      bio: ''
     }
   },
   mounted() {
-    axios.get('http://localhost:1234/auth/profile') 
-    .then((response) => {
-      this.name = response.data.name;
-      this.bio = response.data.name;
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    this.fetchDataUser()
   },
   methods: {
+    fetchDataUser() {
+      const token = this.$cookies.get('userToken');
+      axios.get(`http://localhost:1234/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .then(response => {
+        this.name = response.data.name;
+        this.bio = response.data.bio;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
     editProfile() {
       this.$router.push({name: 'ProfileEdit'})
     },
     editPassword() {
-
+      this.$router.push({name: 'ChangePassword'})
     }
   }
 };

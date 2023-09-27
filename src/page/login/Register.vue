@@ -68,6 +68,7 @@ export default {
           const { code, message } = response.data;
           if(code === 402) {
             console.error(message);
+
           } else if (code === 400) {
             console.error(message)
             }
@@ -80,7 +81,3 @@ export default {
 }
 
 </script>
-
-<style>
-
-</style>

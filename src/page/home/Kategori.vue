@@ -40,8 +40,7 @@ export default {
           this.categories = response.data;
         })
         .catch(error => {
-          this.error = 'Gagal memuat kategori.';
-          console.error(error);
+          console.error('Gagal memuat kategori:', error);
         });
     },
     updateActive(activeItems) {

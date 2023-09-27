@@ -25,40 +25,27 @@
         editedBio: '',
       };
     },
-    computed: {
-      name: {
-        get() {
-          return this.$store.state.name;
-        },
-        set(value) {
-          this.$store.commit('setName', value)
-        }
-      },
-      bio: {
-        get() {
-          return this.$store.state.bio;
-        },
-        set(value) {
-          this.$store.commit('setBio', value)
-        }
-      },
-    },
     methods: {
       saveProfile() {
-        const updatedData = {
+        const dataSend = {
           name: this.editedName,
           bio: this.editedBio,
         };
-        axios.put('http://localhost:1234/auth/profile/update', updatedData)
+        const token = this.$cookies.get('userToken');
+        axios.put(`http://localhost:1234/auth/profile/update`, dataSend, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
-          this.$router.push({name: 'BlogProfile'});
-          console.log(response)
+          console.log(response.data);
+          this.$router.push({name: 'BlogProfile'})
         })
         .catch((error) => {
-          console.error('data error', error)
+          console.loog(error)
         })
       }
-    },
+    }
   };
   </script>
   

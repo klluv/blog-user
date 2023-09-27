@@ -14,6 +14,7 @@
   import BlogEdit from "@/page/navigation/crud/BlogEdit.vue";
   import Register from "@/page/login/Register.vue";
   import Login from "@/page/login/SignIn.vue"
+  import ChangePassword from "@/page/navigation/profile/ChangePassword.vue"
 
   const routes = [
   {
@@ -37,7 +38,15 @@
       path: '/blog/view:id',
       component: MainDetail,
       name: 'MainDetail',
-      props: true
+      props: true,
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
     },
     {
       path: '/blog/list',
@@ -71,18 +80,56 @@
       }
     },
     {
+      path: 'blog/profile/changepassword',
+      component: ChangePassword,
+      name: 'ChangePassword',
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
+    },
+    {
       path: '/blog/mypage',
-      component: MyPage
+      component: MyPage,
+      name: 'MyPage',
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
     },
     {
       path: '/blog/mypage/add',
       component: BlogAdd,
-      name: 'BlogAdd'
+      name: 'BlogAdd',
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
     },
     {
       path: '/blog/mypage/edit',
       component: BlogEdit,
-      name: 'BlogEdit'
+      name: 'BlogEdit',
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
     },
     {
       path: '/register',

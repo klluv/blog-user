@@ -49,7 +49,7 @@ export default {
       })
     },
     editProfile() {
-      this.$router.push({name: 'ProfileEdit'})
+      this.$router.push({name: 'ProfileEdit', params: { id: this.profileId }})
     },
     editPassword() {
       this.$router.push({name: 'ChangePassword'})

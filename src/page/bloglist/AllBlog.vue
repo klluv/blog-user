@@ -1,5 +1,6 @@
 <template>
     <v-app>
+      <v-container>
       <v-row>
         <v-col
           v-for="(item, index) in items"
@@ -23,8 +24,9 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-app>
-  </template>
+    </v-container>
+  </v-app>
+</template>
 
 <script>
 import axios from 'axios';

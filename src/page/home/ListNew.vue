@@ -47,7 +47,9 @@ export default {
     fetchContent() {
       axios.get('http://localhost:1234/contents')
       .then(response => {
-        this.contents = response.data.slice(0,3); 
+        this.contents = response.data.sort((a, b) => {
+          return new Date(b.created_at) - new Date(a.created_at);
+        }).slice(0,3); 
       })
       .catch(error => {
         console.error('Gagal mengambil data:', error);

@@ -119,7 +119,7 @@
       }
     },
     {
-      path: '/blog/mypage/edit',
+      path: '/blog/mypage/edit/:id',
       component: BlogEdit,
       name: 'BlogEdit',
       beforeEnter: (to, from, next) => {

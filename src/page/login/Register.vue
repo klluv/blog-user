@@ -24,6 +24,7 @@
                     v-model="password"
                     label="Password"
                     type="password"
+                    :rules="[v => !!v && v.length >= 8 || 'Password harus memiliki setidaknya 8 karakter']"
                     required
                   ></v-text-field>
                   <v-btn type="submit" color="#02A28F">Register</v-btn>
@@ -65,19 +66,46 @@ export default {
               title: "Success",
               text: response.data.message,})
         } else {
-          const { code, message } = response.data;
-          if(code === 402) {
-            console.error(message);
-
-          } else if (code === 400) {
-            console.error(message)
+            const { code, message } = response.data;
+            if(code === 422 && message === "Password harus memiliki setidaknya 8 karakter") {
+              Swal.fire({
+                icon: "error",
+                title: "Registration Gagal",
+                text: "Password harus memiliki setidaknya 8 karakter",
+              });
+            } else if (code === 400 && message === "Username atau email telah digunakan!") {
+              Swal.fire({
+                icon: "error",
+                title: "Registration Gagal",
+                text: "Username atau email telah digunakan!",
+              });
+            } else if (code === 422 && message === "Format email tidak valid") {
+              Swal.fire({
+                icon: "error",
+                title: "Registration Gagal",
+                text: "Format email tidak valid",
+              });
+            } else if (code === 500 && message === "Terjadi kesalahan internal pada server. Mohon coba beberapa saat lagi") {
+              Swal.fire({
+                icon: "error",
+                title: "Registration Gagal",
+                text: "Terjadi kesalahan internal pada server. Mohon coba beberapa saat lagi",
+              });
+            } else {
+              console.error(message);
             }
           }
-       }
-      )  
+        })
+        .catch(error => {
+          console.error("Kesalahan saat registrasi:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Registration Gagal",
+            text: "Terjadi kesalahan saat registrasi. Mohon coba beberapa saat lagi",
+          });
+        });
       }
     }
   }
 }
-
 </script>

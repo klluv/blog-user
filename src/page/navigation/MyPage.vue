@@ -1,10 +1,10 @@
 <template>
   <v-container class="my-page-container">
-    <v-card-title>
+    <v-card-title style="justify-content: center;">
       <h2>My Page</h2>
     </v-card-title>
     <v-card-actions>
-      <v-btn color="#02A28F" text-color="white" @click="addArticle">Add</v-btn>
+      <v-btn color="#02A28F"  @click="addArticle">Add Blog</v-btn>
     </v-card-actions>
     <v-card v-for="blog in userBlog" :key="blog.id" style="margin-top: 10px">
       <v-card-title>
@@ -76,13 +76,52 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
-          this.fetchUserBlog();
-        })
-        .catch((error) => {
-          console.error(error);
+      console.log(response);
+      if (response.data.status) {
+        this.fetchUserBlog();
+        Swal.fire({
+          icon: "success",
+          title: "Sukses",
+          text: "Konten berhasil dihapus",
         });
-    },
+      } else {
+        const { code, message } = response.data;
+        if (code === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: message,
+          });
+        } else if (code === 403) {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: message,
+          });
+        } else if (code === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: message,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: message,
+          });
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal",
+        text: "Terjadi kesalahan internal server. Gagal menghapus konten",
+      });
+    });
+},
     editButton(blogId) {
       this.$router.push({ name: "BlogEdit", params: { id: blogId } });
     },
@@ -101,6 +140,6 @@ export default {
 
 <style scoped>
 .my-page-container {
-  min-height: 150vh;
+  min-height: 400vh
 }
 </style>

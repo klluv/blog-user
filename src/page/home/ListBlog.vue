@@ -7,7 +7,7 @@
               </v-card-title>
           </v-card>
           <div class="rekomendasi-container">
-          <v-card v-for="content in contents" :key="content.id" class="custom-card-rekomendasi" @click="goToDetail(content.id)">
+          <v-card v-for="content in contents.slice(0,2)" :key="content.id" class="custom-card-rekomendasi" @click="goToDetail(content.id)">
     <v-img
       src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
       class="custom-image-rekomendasi"
@@ -33,19 +33,30 @@ import axios from 'axios';
 export default {
 data() {
   return {
-    contents: []
+    contents: [],
   };
 },
 mounted() {
-  axios.get('http://localhost:1234/contents') 
+  this.fetchContents();
+},
+methods: {
+  fetchContents() {
+    axios.get('http://localhost:1234/contents') 
     .then(response => {
-      this.contents = response.data.filter(blog => blog.id === 5 || blog.id === 6);
+      this.contents = response.data;
+      this.sortContentsByDate();
     })
     .catch(error => {
       console.error(error);
     });
-},
-methods: {
+  },
+  sortContentsByDate() {
+    this.contents.sort((a, b) => {
+        const dateA = new Date(a.created_at);
+        const dateB = new Date(b.created_at);
+        return dateA - dateB;
+      });
+  },
   goToBlogList() {
     this.$router.push({name: 'BlogList'})
   },
@@ -58,13 +69,13 @@ methods: {
 
 <style scoped>
 .custom-card {
-  width: 744px;
+  width: 766px;
   height: 48px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #02A28F;
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.10);
-  margin-left: 50px;
+  margin-left: 45px;
 }
 .custom-card-title {
   width: 203px;

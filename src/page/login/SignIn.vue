@@ -19,12 +19,15 @@
                     v-model="password"
                     label="Password"
                     type="password"
+                    :rules="[v => !!v && v.length >= 8 || 'Password harus memiliki setidaknya 8 karakter']"
                     required
                   ></v-text-field>
                   <v-btn type="submit" color="#02A28F">Login</v-btn>
                   <div class="text-center mt-2">
                     Belum punya akun?
-                    <v-btn text color="#02A28F" @click="register">Register</v-btn>
+                    <v-btn text color="#02A28F" @click="register"
+                      >Register</v-btn
+                    >
                   </div>
                 </v-form>
               </v-card-text>
@@ -53,26 +56,47 @@ export default {
         username: this.username,
         password: this.password,
       };
-      axios.post("http://localhost:1234/login", loginData)
+      axios
+        .post("http://localhost:1234/login", loginData)
         .then((response) => {
           if (response.status === 200) {
-            const token = response.data.token;  
+            const token = response.data.token;
             this.$cookies.set("userToken", token, "12h");
             const self = this;
             Swal.fire({
               icon: "success",
               title: "Success",
               text: response.data.message,
-            }).then(function () { 
-              self.$router.push({ name: "MainHome"});
+            }).then(function () {
+              self.$router.push({ name: "MainHome" });
             });
           } else {
-            alert("Login gagal. Status: " + response.status);
-          } 
+            Swal.fire({
+              icon: "error",
+              title: "FAILED",
+              text: "Login gagal, " + response.status,
+            });
+          }
         })
         .catch((error) => {
           console.error("Kesalahan saat login:", error);
-          alert("Login gagal. Terjadi kesalahan.");
+          let errorMessage = "Login gagal. Terjadi kesalahan.";
+          if (error.response) {
+            const statusCode = error.response.status;
+            if (statusCode === 401) {
+              errorMessage = "Akun tidak ada atau password salah";
+            } else if (statusCode === 404) {
+              errorMessage = "Data login invalid";
+            } else if (statusCode === 500) {
+              errorMessage =
+                "Terjadi kesalahan pada internal server. Coba beberapa saat lagi!";
+            }
+          }
+          Swal.fire({
+            icon: "error",
+            title: "Login Gagal",
+            text: errorMessage,
+          });
         });
     },
     register() {

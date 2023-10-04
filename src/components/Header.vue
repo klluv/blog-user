@@ -15,14 +15,24 @@
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <v-btn color="white" @click="showLogout" outlined>Logout</v-btn>
+      <v-btn v-if="loggedIn" color="white" @click="showLogout" outlined
+        >Logout</v-btn
+      >
       <v-dialog v-model="logoutDialog" max-width="400">
         <v-card>
-          <v-card-title class="headline">Konfirmasi Logout</v-card-title>
-          <v-card-text>apakah anda yakin ingin logout?</v-card-text>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="confirmLogout">Ya</v-btn>
-          <v-btn color="red" @click="cancelLogout">Tidak</v-btn>
+          <v-card-title
+            class="headline text-center"
+            style="background-color: #02a28f; color: #fff"
+          >
+            Konfirmasi Logout
+          </v-card-title>
+          <v-card-text class="text-center">
+            Apakah anda yakin ingin logout?
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-btn color="primary" @click="confirmLogout">Ya</v-btn>
+            <v-btn color="red" @click="cancelLogout">Tidak</v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-app-bar>
@@ -61,12 +71,16 @@ export default {
     return {
       drawer: false,
       logoutDialog: false,
+      loggedIn: false,
       drawerItems: [
         { text: "Home", icon: "mdi-home", route: "/blog" },
         { text: "Profile", icon: "mdi-account", route: "/blog/profile" },
         { text: "My Page", icon: "mdi-pencil", route: "/blog/mypage" },
       ],
     };
+  },
+  created() {
+    this.loggedIn = !!this.$cookies.get("userToken");
   },
   methods: {
     navigate(route) {
@@ -101,11 +115,22 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          Swal.fire({
-            icon: "error",
-            title: "Logout Failed",
-            text: "Logout gagal, coba lagi",
-          });
+          if (error.response && error.response.data) {
+            const { code, message } = error.response.data;
+            if (code === 401) {
+              Swal.fire({
+                icon: "error",
+                title: "Logout Failed",
+                text: message,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Logout Failed",
+                text: "Logout gagal, coba lagi",
+              });
+            }
+          }
         });
     },
     cancelLogout() {

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <router-link class="card" max-auto v-if="content" :to="{name: 'MainDetail', params: {id: content.id} }">
-      <v-img class="align-end" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" height="396px">
+      <v-img class="align-end" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" height="396px" >
         <div class="font">
           <v-card-title>{{ content.title }}</v-card-title>
           <v-card-subtitle>{{ content.created_by }}</v-card-subtitle>
@@ -22,7 +22,7 @@ export default {
     }
   },
   created() {
-    this.fetchContentById(5);
+    this.fetchContentById(6);
   },
   methods: {
     fetchContentById(id) {
@@ -46,10 +46,13 @@ export default {
   margin-left: 50px;
   border-radius: 10px;
   background: #D9D9D9;
-  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.10);
   margin-top: 50px;
 }
 .font {
   color: white
+}
+.align-end {
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.10);
 }
 </style>

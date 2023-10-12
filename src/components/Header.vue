@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-app-bar
       app
       color="#02A28F"
@@ -30,7 +30,7 @@
             Apakah anda yakin ingin logout?
           </v-card-text>
           <v-card-actions class="justify-center">
-            <v-btn color="primary" @click="confirmLogout">Ya</v-btn>
+            <v-btn color="#02a28f" @click="confirmLogout">Ya</v-btn>
             <v-btn color="red" @click="cancelLogout">Tidak</v-btn>
           </v-card-actions>
         </v-card>
@@ -72,15 +72,19 @@ export default {
       drawer: false,
       logoutDialog: false,
       loggedIn: false,
+      user_role: null,
       drawerItems: [
         { text: "Home", icon: "mdi-home", route: "/blog" },
         { text: "Profile", icon: "mdi-account", route: "/blog/profile" },
         { text: "My Page", icon: "mdi-pencil", route: "/blog/mypage" },
+        { text: "Admin", icon: "mdi-head-dots-horizontal", route: "/blog/admin" }
       ],
     };
   },
   created() {
     this.loggedIn = !!this.$cookies.get("userToken");
+    this.user_role = this.$cookies.get('user_role');
+    console.log(this.user_role)
   },
   methods: {
     navigate(route) {

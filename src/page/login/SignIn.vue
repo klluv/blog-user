@@ -19,15 +19,14 @@
                     v-model="password"
                     label="Password"
                     type="password"
-                    :rules="[v => !!v && v.length >= 8 || 'Password harus memiliki setidaknya 8 karakter']"
+                    :rules="[v => !!v && v.length >= 8 || 'Password harus memiliki minimal 8 karakter']"
                     required
                   ></v-text-field>
                   <v-btn type="submit" color="#02A28F">Login</v-btn>
                   <div class="text-center mt-2">
                     Belum punya akun?
                     <v-btn text color="#02A28F" @click="register"
-                      >Register</v-btn
-                    >
+                      >Register</v-btn>
                   </div>
                 </v-form>
               </v-card-text>

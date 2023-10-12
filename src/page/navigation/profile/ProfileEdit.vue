@@ -16,12 +16,14 @@
             <v-card-title> Ganti Photo Profile </v-card-title>
             <v-card-text> Upload foto anda dibawah ini </v-card-text>
             <v-file-input
-              @change="onFileSelected"
+              v-model="selectedImage"
+              ref="image"
+              @change="uploadPhoto"
               accept="image/png, image/jpeg, image/bmp"
               placeholder="Pick an avatar"
               prepend-icon="mdi-camera"
               label="Avatar"
-            ></v-file-input>
+            />
             <v-card-action>
               <v-btn color="#02A28F" @click="savePhotoProfile">Simpan</v-btn>
               <v-btn color="danger" @click="photoProfileDialog = false"
@@ -58,7 +60,7 @@ export default {
       editedName: "",
       editedBio: "",
       photoProfileDialog: false,
-      selectedFile: false,
+      selectedImage: null,
     };
   },
   created() {
@@ -81,28 +83,20 @@ export default {
           console.log(error);
         });
     },
-    onFileSelected(event) {
-      if (event instanceof File) {
-        this.selectedFile = event;
-        console.log(event);
-      } else {
-        console.error(
-          "Event tidak mengandung objek file yang diharapkan:",
-          event
-        );
-      }
+    onFileSelected() {
+      this.selectedFile = this.$refs.image.files[0];
     },
+
     savePhotoProfile() {
+      if (!this.selectedImage) {
+        return alert("Pilih foto terlebih dahulu!");
+      }
       const token = this.$cookies.get("userToken");
-      const fd = new FormData();
-      fd.append(
-        "image",
-        this.selectedFile,
-        this.selectedFile,
-        this.selectedFile.name
-      );
+      const form_data = new FormData();
+      form_data.append("image", this.selectedImage);
+
       axios
-        .put(`http://localhost:1234/auth/upload-picture`, fd, {
+        .put(`http://localhost:1234/auth/upload-picture`, form_data, {
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress:" +
@@ -112,13 +106,25 @@ export default {
           },
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         })
         .then((response) => {
           console.log(response);
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "foto profil berhasil diupload",
+          });
+          this.photoProfileDialog = false;
         })
         .catch((error) => {
           console.log(error);
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: "terjadi kesalahan",
+          });
         });
     },
     saveProfile() {

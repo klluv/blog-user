@@ -23,6 +23,7 @@ export default {
         width: this.isMobile ? "100%" : "1441px",
         height: "48px",
         flexShrink: 0,
+        marginTop: "30px"
       };
     },
     isMobile() {

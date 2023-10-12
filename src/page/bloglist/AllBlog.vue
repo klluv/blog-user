@@ -11,7 +11,7 @@
           lg="3"
         >
           <v-card class="custom-card-rekomendasi" @click="goToDetail(item.id)">
-            <v-img :src="item.image" class="custom-image-rekomendasi"></v-img>
+            <v-img :src="item.cover_image_url" class="custom-image-rekomendasi"></v-img>
             <v-card-title class="custom-card-title-list-rekomendasi">
               {{ item.title }}
             </v-card-title>
@@ -47,6 +47,7 @@ export default {
             axios.get(urlApi)
             .then((response) => {
                 this.items = response.data;
+                console.log(response)
             })
             .catch((error) => {
                 console.error('data error', error)

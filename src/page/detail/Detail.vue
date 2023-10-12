@@ -1,7 +1,7 @@
 <template>
     <v-app class="text-area">
         <h1 class="text-title" >{{ content.title }}</h1>
-        <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" class="detail-image"></v-img>
+        <v-img :src="content.cover_image_url" class="detail-image"></v-img>  
         <p class="text-paragraph">
           {{ content.content }}
         </p>
@@ -10,7 +10,6 @@
 
 <script>
 import axios from 'axios';
-// import store from '@/store';
 
 export default {
     data() {
@@ -23,6 +22,7 @@ export default {
       axios.get(`http://localhost:1234/content/${contentId}`)
         .then(response => {
           this.content = response.data;
+          console.log(response)
         })
         .catch(error => {
           console.error('Gagal mengambil data:', error);

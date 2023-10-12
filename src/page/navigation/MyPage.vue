@@ -8,14 +8,17 @@
     </v-card-actions>
     <v-card v-for="blog in userBlog" :key="blog.id" style="margin-top: 10px">
       <v-card-title>
-        <h3>{{ blog.title }}</h3>
+        <v-avatar color="#02A28F" size="100" tile @click="photoProfileDialog = true">
+            <img :src="blog.cover_image_url" />
+          </v-avatar>
+        <h3 style="margin-left: 15px;">{{ blog.title }}</h3>
       </v-card-title>
       <v-card-text>
         <p>{{ blog.created_at }}</p>
         <p>{{ truncateText(blog.content, 200) }}</p>
       </v-card-text>
       <v-card-action>
-        <v-btn color="primary" text @click="editButton(blog.id)">Edit</v-btn>
+        <v-btn color="#02A28F" text @click="editButton(blog.id)">Edit</v-btn>
         <v-btn color="error" text @click="confirmDelete(blog.id)">Delete</v-btn>
       </v-card-action>
     </v-card>
@@ -46,6 +49,7 @@ export default {
         })
         .then((response) => {
           this.userBlog = response.data;
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -76,7 +80,6 @@ export default {
           },
         })
         .then((response) => {
-      console.log(response);
       if (response.data.status) {
         this.fetchUserBlog();
         Swal.fire({

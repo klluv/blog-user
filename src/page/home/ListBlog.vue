@@ -1,69 +1,75 @@
 <template>
   <v-app>
-      <v-col>
-          <v-card class="custom-card" @click="goToBlogList">
-              <v-card-title class="custom-card-title" @click="goToBlogList">
-                  Blog List 
-              </v-card-title>
-          </v-card>
-          <div class="rekomendasi-container">
-          <v-card v-for="content in contents.slice(0,2)" :key="content.id" class="custom-card-rekomendasi" @click="goToDetail(content.id)">
-    <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      class="custom-image-rekomendasi"
-    ></v-img>
-    <v-card-title class="custom-card-title-list-rekomendasi">
-      {{ content.title }}
-    </v-card-title>
-    <div class="custom-card-subtitle-list-rekomendasi">
-      {{ content.created_by }}
-    </div>
-        <v-card-text class="custom-card-text-list-rekomendasi">
-          {{ content.content }}
-        </v-card-text>
-  </v-card>
-  </div>  
-      </v-col>
+    <v-col>
+      <v-card class="custom-card" @click="goToBlogList">
+        <v-card-title class="custom-card-title" @click="goToBlogList">
+          Blog List
+        </v-card-title>
+      </v-card>
+      <div class="rekomendasi-container">
+        <v-card
+          v-for="content in contents.slice(0, 2)"
+          :key="content.id"
+          class="custom-card-rekomendasi"
+          @click="goToDetail(content.id)"
+        >
+          <v-img
+            :src="content.cover_image_url"
+            class="custom-image-rekomendasi"
+          ></v-img>
+          <v-card-title class="custom-card-title-list-rekomendasi">
+            {{ content.title }}
+          </v-card-title>
+          <div class="custom-card-subtitle-list-rekomendasi">
+            {{ content.created_by }}
+          </div>
+          <v-card-text class="custom-card-text-list-rekomendasi">
+            {{ content.content }}
+          </v-card-text>
+        </v-card>
+      </div>
+    </v-col>
   </v-app>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-data() {
-  return {
-    contents: [],
-  };
-},
-mounted() {
-  this.fetchContents();
-},
-methods: {
-  fetchContents() {
-    axios.get('http://localhost:1234/contents') 
-    .then(response => {
-      this.contents = response.data;
-      this.sortContentsByDate();
-    })
-    .catch(error => {
-      console.error(error);
-    });
+  data() {
+    return {
+      contents: [],
+    };
   },
-  sortContentsByDate() {
-    this.contents.sort((a, b) => {
+  mounted() {
+    this.fetchContents();
+  },
+  methods: {
+    fetchContents() {
+      axios
+        .get("http://localhost:1234/contents")
+        .then((response) => {
+          this.contents = response.data;
+          this.sortContentsByDate();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    sortContentsByDate() {
+      this.contents.sort((a, b) => {
         const dateA = new Date(a.created_at);
         const dateB = new Date(b.created_at);
         return dateA - dateB;
       });
+    },
+    goToBlogList() {
+      this.$router.push({ name: "BlogList" });
+    },
+    goToDetail(id) {
+      this.$router.push({ name: "MainDetail", params: { id } });
+    },
   },
-  goToBlogList() {
-    this.$router.push({name: 'BlogList'})
-  },
-  goToDetail(id) {
-    this.$router.push({name: 'MainDetail', params: {id} })
-  }
-}
 };
 </script>
 
@@ -73,13 +79,13 @@ methods: {
   height: 48px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #02A28F;
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.10);
+  background: #02a28f;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);
   margin-left: 45px;
 }
 .custom-card-title {
   width: 203px;
-  color: #FFF;
+  color: #fff;
   font-family: Montserrat;
   font-size: 20px;
   font-style: normal;
@@ -87,16 +93,16 @@ methods: {
   line-height: normal;
 }
 .rekomendasi-container {
-display: flex;
-flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 .custom-card-rekomendasi {
   width: 360px;
   height: 396px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.10);
+  background: #fff;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
   margin-left: 45px;
   margin-bottom: 20px;
   margin-top: 20px;
@@ -106,8 +112,8 @@ flex-wrap: wrap;
   height: 396px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.10);
+  background: #fff;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
   margin-left: 25px;
   margin-top: 20px;
 }
@@ -116,23 +122,23 @@ flex-wrap: wrap;
   height: 191px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #D9D9D9;
+  background: #d9d9d9;
 }
 .custom-card-title-list-rekomendasi {
-height: 21px;
-flex-shrink: 0;
-color: #000;
-font-family: Montserrat;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  height: 21px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 .custom-card-subtitle-list-rekomendasi {
   margin-top: 15px;
   height: 15px;
   flex-shrink: 0;
-  color: #02A28F;
+  color: #02a28f;
   font-family: Montserrat;
   font-size: 14px;
   font-style: normal;
@@ -148,6 +154,6 @@ line-height: normal;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: 10px
+  margin-top: 10px;
 }
 </style>

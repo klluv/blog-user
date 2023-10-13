@@ -2,7 +2,7 @@
   <div>
     <v-footer class="absolute-footer" color="#02A28F" :style="footerStyle">
       <v-spacer></v-spacer>
-      <div class="text-center">
+      <div class="text-center" style="color: white;">
         &copy; 2023 - Kaka
       </div>
       <v-spacer></v-spacer>

@@ -15,6 +15,7 @@
   import BlogEdit from "@/page/navigation/crud/BlogEdit.vue";
   import AdminPage from "@/page/admin/AdminPage.vue"
   import ControlUser from "@/page/admin/user/ControlUser.vue";
+  import EditUser from "@/page/admin/user/EditUser.vue";
   import ControlCategory from "@/page/admin/category/ControlCategory.vue";
   import AddCategory from "@/page/admin/category/AddCategory.vue";
   import EditCategory from "@/page/admin/category/EditCategory.vue";
@@ -178,7 +179,7 @@
       }
     },
     {
-      path: 'blog/admin/control/category/add',
+      path: 'blog/admin/control-category/add',
       component: AddCategory,
       name: 'AddCategory',
       beforeEnter: (to, from, next) => {
@@ -207,6 +208,19 @@
       path: 'blog/admin/control-user',
       component: ControlUser,
       name: 'ControlUser',
+      beforeEnter: (to, from, next) => {
+        const token = Vue.$cookies.get("userToken");
+        if(token) {
+          next();
+        } else {
+          next({name: 'Login'})
+        }
+      }
+    },
+    {
+      path:'blog/admin/control-user/edit',
+      component: EditUser,
+      name: 'EditUser',
       beforeEnter: (to, from, next) => {
         const token = Vue.$cookies.get("userToken");
         if(token) {

@@ -31,12 +31,6 @@
   </v-app>
 </template>
 
-<script>
-export default {
-
-};
-</script>
-
 <style scoped>
 .control-card {
   background-color: #f4f4f4;

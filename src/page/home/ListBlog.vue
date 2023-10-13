@@ -147,7 +147,6 @@ export default {
   margin-left: 15px;
 }
 .custom-card-text-list-rekomendasi {
-  width: 336px;
   color: teal;
   font-family: Montserrat;
   font-size: 14px;
@@ -155,5 +154,10 @@ export default {
   font-weight: 400;
   line-height: normal;
   margin-top: 10px;
+  white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    width: 100%; 
+    max-width: 50ch; 
 }
 </style>

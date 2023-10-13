@@ -59,7 +59,7 @@ export default {
     confirmDelete(id) {
       Swal.fire({
         title: "Konfirmasi",
-        text: "Anda yakin ingin menghapus konten ini?",
+        text: "Anda yakin ingin menghapus kategori ini?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

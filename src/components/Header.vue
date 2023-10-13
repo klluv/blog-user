@@ -11,7 +11,7 @@
       ></v-app-bar-nav-icon>
       <router-link :to="{ name: 'MainHome' }">
         <v-toolbar-title class="font-style" style="margin-left: 30px">
-          Author Blog
+          Blog
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>

@@ -1,6 +1,6 @@
 <template>
-    <v-app>
-      <v-container>
+  <v-app>
+    <v-container>
       <v-row>
         <v-col
           v-for="(item, index) in items"
@@ -101,14 +101,10 @@ export default {
     margin-left: 15px;
 }
 .custom-card-text-list-rekomendasi {
-    width: 336px;
-    color: teal;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-top: 10px
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    width: 100%; 
+    max-width: 50ch; 
 }
 </style>
-

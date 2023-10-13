@@ -1,7 +1,11 @@
 <template>
   <v-container>
-    <v-action>
-          <v-btn color="#02A28F" @click="photoCoverDialog = true">Upload Cover Content</v-btn>
+    <v-card class="custom-card">
+      <v-card-title>
+        <h2>Edit Blog</h2>
+      </v-card-title>
+      <v-action>
+          <v-btn color="#02A28F" @click="photoCoverDialog = true" style="margin-left:10px">Upload Cover Content</v-btn>
         </v-action>
         <v-dialog v-model="photoCoverDialog" max-width="500">
           <v-card>
@@ -22,10 +26,6 @@
             </v-card-action>
           </v-card>
         </v-dialog>
-    <v-card class="custom-card">
-      <v-card-title>
-        <h2>Edit Blog</h2>
-      </v-card-title>
       <v-card-text>
         <v-text-field v-model="blogData.title" label="Title"></v-text-field>
         <v-textarea v-model="blogData.content" label="Content"></v-textarea>

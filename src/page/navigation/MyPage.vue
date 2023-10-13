@@ -142,7 +142,7 @@ export default {
 </script>
 
 <style scoped>
-.my-page-container {
+/* .my-page-container {
   min-height: 400vh
-}
+} */
 </style>

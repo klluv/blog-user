@@ -2,10 +2,10 @@
   <v-app>
     <router-link max-auto v-if="content" :to="{name: 'MainDetail', params: {id: content.id} }">
       <v-card class="card">
-      <v-img class="align-end" :src="content.cover_image_url" height="396px" >
+      <v-img class="align-end" :src="content.cover_image_url" height="391px" width="743px" >
         <div class="font">
-          <strong><v-card-title>{{ content.title }}</v-card-title></strong>
-          <v-card-subtitle>{{ content.created_by }}</v-card-subtitle>
+          <v-card-title style="font-size: 40px; margin-bottom: 10px;"><strong>{{ content.title }}</strong></v-card-title>
+          <v-card-subtitle style="font-size: 20px;"><strong>{{ content.created_by }}</strong></v-card-subtitle>
         </div>
       </v-img>
     </v-card>
@@ -30,7 +30,7 @@ export default {
       axios.get(`http://localhost:1234/content/${id}`)
         .then((response) => {
           this.content = response.data;
-          console.log(response)
+          // console.log(response)
         })
         .catch((error) => {
           console.error('Error:', error)
@@ -38,7 +38,7 @@ export default {
     }
   }
 }
-</script>
+</script> 
 
 <style scoped>
 .card {
@@ -48,7 +48,7 @@ export default {
   border-radius: 10px;
   background: #D9D9D9;
   margin-top: 50px;
-  border: 1px solid #000
+  border: 2px solid #02A28F;
 }
 .font {
   color: black

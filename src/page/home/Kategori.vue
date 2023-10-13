@@ -36,12 +36,12 @@ export default {
   methods: {
     goToDetailCategory(category_id) {
       this.$router.push(`/blog/category/view${category_id}`);
-      console.log(category_id);
+      // console.log(category_id);
     },
     fetchCategories() {
       axios.get('http://localhost:1234/categories')
         .then(response => {
-          console.log(response)
+          // console.log(response);
           this.categories = response.data;
         })
         .catch(error => {

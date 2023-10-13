@@ -4,7 +4,7 @@
       <v-container fluid>
         <v-row justify="center">
           <v-col cols="12" sm="8" md="4">
-            <v-card>
+            <v-card style="border: #02A28F solid 2px">
               <v-card-title class="text-center">
                 <h2>Register</h2>
               </v-card-title>

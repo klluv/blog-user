@@ -11,10 +11,10 @@
         <p><strong>Bio:</strong> {{ myBio }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="#02A28F" text-color="white" @click="editProfile"  
+        <v-btn color="#02A28F"  text outlined @click="editProfile"  
           >Edit Profile</v-btn
         >
-        <v-btn color="#02A28F" text-color="white" @click="editPassword"
+        <v-btn color="#02A28F" text outlined @click="editPassword"
           >Edit Password</v-btn
         >
       </v-card-actions>
@@ -71,5 +71,6 @@ export default {
 <style scoped>
 .custom-card {
   margin-top: 90px;
+  border: #02A28F solid 2px
 }
 </style>

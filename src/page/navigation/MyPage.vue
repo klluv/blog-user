@@ -4,12 +4,12 @@
       <h2>My Page</h2>
     </v-card-title>
     <v-card-actions>
-      <v-btn color="#02A28F"  @click="addArticle">Add Blog</v-btn>
+      <v-btn color="#02A28F" style="color: white;"  @click="addArticle">Add Blog</v-btn>
     </v-card-actions>
-    <v-card v-for="blog in userBlog" :key="blog.id" style="margin-top: 10px">
+    <v-card v-for="blog in userBlog" :key="blog.id" style="margin-top: 10px; border: #02A28F solid 2px">
       <v-card-title>
         <v-avatar color="#02A28F" size="100" tile @click="photoProfileDialog = true">
-            <img :src="blog.cover_image_url" />
+            <img style="width: 200px;" :src="blog.cover_image_url" />
           </v-avatar>
         <h3 style="margin-left: 15px;">{{ blog.title }}</h3>
       </v-card-title>
@@ -18,8 +18,8 @@
         <p>{{ truncateText(blog.content, 200) }}</p>
       </v-card-text>
       <v-card-action>
-        <v-btn color="#02A28F" text @click="editButton(blog.id)">Edit</v-btn>
-        <v-btn color="error" text @click="confirmDelete(blog.id)">Delete</v-btn>
+        <v-btn color="#02A28F" style="margin-left: 10px; margin-bottom: 10px;" text outlined @click="editButton(blog.id)">Edit</v-btn>
+        <v-btn color="error" style="margin-left: 10px; margin-bottom: 10px;" text outlined @click="confirmDelete(blog.id)">Delete</v-btn>
       </v-card-action>
     </v-card>
   </v-container>

@@ -4,7 +4,7 @@
       <router-link to="admin/control-user">
         <v-card class="control-card">
           <v-card-title class="control-title">
-            <v-icon left>mdi-account</v-icon>
+            <v-icon left color="white">mdi-account</v-icon>
             Control User
           </v-card-title>
         </v-card>
@@ -13,7 +13,7 @@
       <router-link to="admin/control-category">
         <v-card class="control-card">
           <v-card-title class="control-title">
-            <v-icon left>mdi-view-list</v-icon>
+            <v-icon left color="white">mdi-view-list</v-icon>
             Control Category
           </v-card-title>
         </v-card>
@@ -22,7 +22,7 @@
       <router-link to="admin/control-content">
         <v-card class="control-card">
           <v-card-title class="control-title">
-            <v-icon left>mdi-file-document</v-icon>
+            <v-icon left color="white">mdi-file-document</v-icon>
             Control Content
           </v-card-title>
         </v-card>
